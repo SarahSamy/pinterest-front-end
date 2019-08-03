@@ -3,18 +3,20 @@ language: node_js
 node_js:
   - lts/*
 cache: npm
+before_install:
+  - sudo apt update
+  - sudo apt install -y chromium-browser
 install:
   - npm install
 script:
-  - npm test
+  - npm run test-headless
   - npm run build
 deploy:
   provider: pages
   skip-cleanup: true
   verbose: true
-  github-token:
-    secure:
+  github-token: $GITHUB_TOKEN
   keep-history: true
-  local-dir: dist
+  local-dir: dist/Pinterest
   on:
     branch: master
